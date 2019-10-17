@@ -1,0 +1,3 @@
+ansible_connection: network_cli
+ansible_network_os: iosxr
+ansible_password: "{{lookup('env', 'TESUTO_PASSWORD')}}"

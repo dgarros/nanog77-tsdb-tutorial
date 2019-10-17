@@ -1,0 +1,7 @@
+
+
+ansible_host: "{{inventory_hostname}}.{{lookup('env', 'TESUTO_TOPOLOGY')}}.{{lookup('env', 'TESUTO_DOMAIN')}}.cloud.tesuto.com"
+ansible_user: "{{lookup('env', 'TESUTO_USERNAME')}}" 
+
+ntp_servers: [ 69.89.207.99, 142.147.92.5 ]
+

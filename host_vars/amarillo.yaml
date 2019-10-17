@@ -1,0 +1,11 @@
+interfaces:
+  ge-0/0/0:
+    role: leaf
+    local_ip: 10.0.0.13/30
+    peer_ip: 10.0.0.14/30
+    peer: houston
+  ge-0/0/1:
+    role: leaf
+    local_ip: 10.0.0.9/30
+    peer_ip: 10.0.0.10/30
+    peer: dallas

@@ -1,0 +1,83 @@
+
+hostname {{ inventory_hostname }}
+domain name local
+domain name-server 100.96.0.1
+username ztp-user
+ group root-lr
+ group cisco-support
+ secret 5 $1$1sUS$GXSKAUZELmZsa/B3ne89a.
+!
+username ztp-user
+ group root-lr
+ group cisco-support
+ secret 5 $1$1sUS$GXSKAUZELmZsa/B3ne89a.
+!
+username tesutocli
+ group root-lr
+ group cisco-support
+ secret 5 $1$phG4$UvYiI0OlRzdwm4M/gTgoc1
+!
+tpa
+ vrf default
+  address-family ipv4
+   default-route mgmt
+   update-source dataports MgmtEth0/RP0/CPU0/0
+  !
+  address-family ipv6
+   default-route mgmt
+   update-source dataports MgmtEth0/RP0/CPU0/0
+  !
+ !
+!
+ntp
+{% for srv in ntp_servers %}
+ server {{srv}}
+{% endfor %}
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method http
+ !
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address dhcp
+!
+{% for intf_name, intf in interfaces.items() %}
+interface {{ intf_name }}
+ ipv4 address {{ intf.local_ip | ipaddr('address') }} {{ intf.local_ip | ipaddr('netmask') }}
+ no shutdown
+!
+{% endfor %}
+route-policy allow-all
+  pass
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 100.96.0.1
+ !
+!
+router bgp {{asn}}
+ bgp router-id {{loopback_ip}}
+ address-family ipv4 unicast
+  network {{loopback_ip}}/32
+  redistribute connected
+{% for intf_name, intf in interfaces.items() %}
+{%  if intf.peer_ip is defined %}
+ neighbor {{ intf.peer_ip | ipaddr('address') }}
+  remote-as {{ hostvars[intf.peer].asn }}
+  address-family ipv4 unicast
+   route-policy allow-all in
+   route-policy allow-all out
+{%  endif %}
+{% endfor %}
+!
+xml agent tty
+ iteration off
+!
+lldp
+!
+ssh server v2

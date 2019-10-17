@@ -1,0 +1,13 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+{% for intf_name, intf in interfaces.items() %}
+    {{intf_name}}:
+      addresses: [{{intf.local_ip}}]
+      routes:
+{%  for route in static_routes %}
+        - to: {{route}}
+          via: {{intf.next_hop}}
+{%  endfor %}
+{% endfor %}

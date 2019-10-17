@@ -1,0 +1,6 @@
+ansible_connection: network_cli
+ansible_network_os: eos
+ansible_password: "{{lookup('env', 'TESUTO_PASSWORD')}}"
+ansible_become: yes
+ansible_become_method: enable
+ansible_become_password: "{{ ansible_password }}"

@@ -1,0 +1,22 @@
+
+- name: Deploy Configuration
+  hosts: [ server ]
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Configure Hostname
+      hostname: 
+        name: "{{inventory_hostname}}"
+
+    - name: Generate Configuration
+      template:
+        src: "linux_netplan.j2"
+        dest:  "/etc/netplan/60-ntc.yaml"
+        mode: 0644
+
+    - name: Apply changes to netplan
+      command: netplan apply
+
+    - name: Install Iperf
+      apt:
+        name: iperf

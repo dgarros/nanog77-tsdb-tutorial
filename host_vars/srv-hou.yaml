@@ -1,0 +1,5 @@
+interfaces:
+  eth1:
+    role: uplink
+    local_ip: 10.0.12.10/24
+    next_hop: 10.0.12.1

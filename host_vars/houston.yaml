@@ -1,0 +1,14 @@
+interfaces:
+  Ethernet1:
+    role: uplink
+    local_ip: 10.0.0.6/30
+    peer_ip: 10.0.0.5/30
+    peer: austin
+  Ethernet4:
+    role: uplink
+    local_ip: 10.0.0.14/30
+    peer_ip: 10.0.0.13/30
+    peer: amarillo
+  Ethernet3:
+    role: server
+    local_ip: 10.0.12.1/24

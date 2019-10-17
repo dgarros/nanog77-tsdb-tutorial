@@ -1,0 +1,35 @@
+
+- name: Deploy Configurations
+  hosts: [ junos, eos, iosxr ]
+  gather_facts: no
+  tasks:
+    - name: Generate Configuration
+      template:
+        src: "{{ansible_network_os}}.j2"
+        dest:  "configs/generated/{{inventory_hostname}}.conf"
+        mode: 0644
+      delegate_to: localhost
+      tags: [ generate ]
+
+    - name: Deploy Junos configuration
+      junos_config:
+        # src: "configs/generated/{{inventory_hostname}}.conf"
+        src: "{{ansible_network_os}}.j2"
+        update: merge
+      when: ansible_network_os == 'junos'
+
+    - name: Deploy EOS configuration
+      eos_config:
+        # src: "configs/generated/{{inventory_hostname}}.conf"
+        src: "{{ansible_network_os}}.j2"
+        replace: config
+      when: ansible_network_os == 'eos'
+
+    - name: Deploy IOS_XR Configuration
+      iosxr_config:
+        # src: "configs/generated/{{inventory_hostname}}.conf"
+        src: "{{ansible_network_os}}.j2"
+        replace: config
+      become: yes
+      when: ansible_network_os == 'iosxr'
+    

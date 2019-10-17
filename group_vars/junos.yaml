@@ -1,0 +1,5 @@
+ansible_connection: netconf
+ansible_network_os: junos
+ansible_password: "{{lookup('env', 'TESUTO_PASSWORD')}}"
+ansible_port: 830
+ansible_ssh_extra_args: '-o StrictHostKeyChecking=no'

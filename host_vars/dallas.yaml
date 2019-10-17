@@ -1,0 +1,14 @@
+interfaces:
+  GigabitEthernet0/0/0/0:
+    role: uplink
+    local_ip: 10.0.0.2/30
+    peer_ip: 10.0.0.1/30
+    peer: austin
+  GigabitEthernet0/0/0/3:
+    role: uplink
+    local_ip: 10.0.0.10/30
+    peer_ip: 10.0.0.9/30
+    peer: amarillo
+  GigabitEthernet0/0/0/2:
+    role: server
+    local_ip: 10.0.11.1/24
