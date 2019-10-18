@@ -1,5 +1,5 @@
 
-- name: Deploy Configurations
+- name: Deploy Configurations for Network Devices
   hosts: [ junos, eos, iosxr ]
   gather_facts: no
   tasks:
@@ -13,22 +13,19 @@
 
     - name: Deploy Junos configuration
       junos_config:
-        # src: "configs/generated/{{inventory_hostname}}.conf"
-        src: "{{ansible_network_os}}.j2"
+        src: "configs/generated/{{inventory_hostname}}.conf"
         update: merge
       when: ansible_network_os == 'junos'
 
     - name: Deploy EOS configuration
       eos_config:
-        # src: "configs/generated/{{inventory_hostname}}.conf"
-        src: "{{ansible_network_os}}.j2"
+        src: "configs/generated/{{inventory_hostname}}.conf"
         replace: config
       when: ansible_network_os == 'eos'
 
     - name: Deploy IOS_XR Configuration
       iosxr_config:
-        # src: "configs/generated/{{inventory_hostname}}.conf"
-        src: "{{ansible_network_os}}.j2"
+        src: "configs/generated/{{inventory_hostname}}.conf"
         replace: config
       become: yes
       when: ansible_network_os == 'iosxr'
