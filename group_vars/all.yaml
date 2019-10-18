@@ -5,3 +5,4 @@ ansible_user: "{{lookup('env', 'TESUTO_USERNAME')}}"
 
 ntp_servers: [ 69.89.207.99, 142.147.92.5 ]
 
+gnmi_port_local: 50000

@@ -1,5 +1,9 @@
 
 
+daemon TerminAttr
+   exec /usr/bin/TerminAttr -disableaaa -grpcaddr=0.0.0.0:5910 -allowed_ips=172.0.0.0/8
+   no shutdown
+!
 transceiver qsfp default-mode 4x10G
 !
 hostname {{inventory_hostname}}
@@ -53,6 +57,13 @@ management api http-commands
    !
    vrf TESUTO
       no shutdown
+!
+management api gnmi
+   transport grpc default
+   port {{gnmi_port_local}}
+   vrf TESUTO
+   no ssl profile
+   no shutdown
 !
 management ssh
    vrf TESUTO

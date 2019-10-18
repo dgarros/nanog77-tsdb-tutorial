@@ -12,3 +12,5 @@ interfaces:
   Ethernet3:
     role: server
     local_ip: 10.0.12.1/24
+
+gnmi_port_local: 3333

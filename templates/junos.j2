@@ -22,6 +22,16 @@ system {
     }
     services {
         ssh;
+        extension-service {
+            request-response {
+                grpc {
+                    clear-text {
+                        port {{gnmi_port_local}};
+                    }
+                    max-connections 5;
+                }
+            }
+        }
         netconf {
             ssh;
         }
