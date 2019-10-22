@@ -29,9 +29,11 @@
         - interfaces is defined
         - netplan is changed 
 
-    - name: Install Iperf
+    - name: Install Iperf & Iperf3
       apt:
-        name: iperf
+        name:  "{{ item }}" 
+        state: latest 
+      loop: [ 'iperf', 'iperf3' ]
 
 # --------------------------------------------------------------------
 # Install Docker on Host
