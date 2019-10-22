@@ -10,6 +10,7 @@ netaddr = "*"
 paramiko = "*"
 ncclient = "*"
 ansible = "==2.9.0rc3"
+jmespath = "*"
 
 [requires]
 python_version = "3.7"
