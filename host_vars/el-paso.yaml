@@ -1,0 +1,11 @@
+interfaces:
+  GigabitEthernet0/0/0/0:
+    role: leaf
+    local_ip: 10.0.0.25/30
+    peer_ip: 10.0.0.26/30
+    peer: dallas
+  GigabitEthernet0/0/0/1:
+    role: leaf
+    local_ip: 10.0.0.29/30
+    peer_ip: 10.0.0.30/30
+    peer: houston
