@@ -1,0 +1,27 @@
+- name: Deploy a Telegraf Agent per device on the Jumphost
+  hosts: jumphost
+  gather_facts: no
+  become: yes
+  vars:
+    gnmi_hosts: [ austin, dallas, houston, amarillo, el-paso, san-antonio ]
+  tasks:
+  
+  - name: Create Telegraf Configuration
+    template:
+      src: "telegraf_gnmi.j2"
+      dest: "/tmp/telegraf-{{item}}.conf"
+    tags: [ config ]
+    loop: "{{gnmi_hosts}}"
+
+  - name: Start Telegraf Agent 
+    docker_container:
+      name: "telegraf-{{item}}"
+      image: "telegraf:1.12.3"
+      state: started
+      restart: yes
+      volumes:
+        "/tmp/telegraf-{{item}}.conf:/etc/telegraf/telegraf.conf:ro"
+      ports:
+      - "{{hostvars[item].gnmi_port_telegraf}}:{{hostvars[item].gnmi_port_telegraf}}"
+    tags: [ docker ]
+    loop: "{{gnmi_hosts}}"

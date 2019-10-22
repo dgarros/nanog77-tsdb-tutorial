@@ -1,0 +1,21 @@
+[[processors.regex]]
+  namepass = ["interface"]
+
+{% for intf_name, intf in hostvars[item].interfaces.items() %}
+{%  if intf.role is defined %}
+  [[processors.regex.tags]]
+    key = "name"
+    pattern = "^{{intf_name|replace("/", "\\\\/")}}$"
+    replacement = "{{intf.role}}"
+    result_key = "intf_role"
+
+{%  endif %}
+{%  if intf.peer is defined %}
+  [[processors.regex.tags]]
+    key = "name"
+    pattern = "^{{intf_name|replace("/", "\\\\/")}}$"
+    replacement = "{{intf.peer}}"
+    result_key = "neighbor"
+
+{%  endif %}
+{% endfor %}
