@@ -44,6 +44,7 @@ ip routing
 no ip routing vrf TESUTO
 !
 router bgp {{asn}}
+  maximum-paths 4 ecmp 4
   router-id {{loopback_ip}}
 {% for intf_name, intf in interfaces.items() %}
 {%  if intf.peer_ip is defined  %}
@@ -59,7 +60,7 @@ management api http-commands
       no shutdown
 !
 management api gnmi
-   transport grpc default
+   transport grpc TELEGRAF
    port {{gnmi_port_local}}
    vrf TESUTO
    no ssl profile

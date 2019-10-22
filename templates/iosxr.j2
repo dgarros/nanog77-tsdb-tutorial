@@ -1,7 +1,9 @@
 
 hostname {{ inventory_hostname }}
 domain name local
-domain name-server 100.96.0.1
+{% for srv in dns_servers %}
+domain name-server {{srv}}
+{% endfor %}
 username ztp-user
  group root-lr
  group cisco-support
@@ -64,6 +66,7 @@ router bgp {{asn}}
  timers bgp 15 45
  bgp router-id {{loopback_ip}}
  address-family ipv4 unicast
+  maximum-paths ebgp 4
   network {{loopback_ip}}/32
   redistribute connected
 {% for intf_name, intf in interfaces.items() %}
