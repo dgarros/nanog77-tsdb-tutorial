@@ -29,41 +29,40 @@
         - interfaces is defined
         - netplan is changed 
 
-    - name: Install Iperf & Iperf3
+    - name: Install Iperf, Iperf3 & nuttcp
       apt:
         name:  "{{ item }}" 
         state: latest 
-      loop: [ 'iperf', 'iperf3' ]
+      loop: [ iperf, iperf3, nuttcp ]
 
-# --------------------------------------------------------------------
-# Install Docker on Host
-# Based on Community Playbooks
-# Playbook: Installing Docker and Creating Containers on Ubuntu 18.04
-# Based on: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
-# --------------------------------------------------------------------
-    - name: Install required system packages
-      apt: 
-        name: "{{ item }}" 
+    - name: Install NGINX
+      apt:
+        name:  nginx
         state: latest 
-        update_cache: yes
-      loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+      when: 
+        - "'srv' in inventory_hostname"
 
-    - name: Add Docker GPG apt Key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
+    - name: Install docker
+      include_role:
+        name: install_docker
 
-    - name: Add Docker Repository
-      apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu bionic stable
-        state: present
+    - name: Install K6
+      include_role:
+        name: install_k6
+      when: 
+        - "'srv' in inventory_hostname"
 
-    - name: Update apt and install docker-ce
-      apt: 
-        update_cache: yes 
-        name: docker-ce 
-        state: latest
+    - name: Download file to generate Payload
+      get_url:
+        url: https://wallpaperaccess.com/full/626310.jpg
+        dest: /var/www/html/big_image.jpg
+      when: 
+        - "'srv' in inventory_hostname"
 
-    - name: Install Docker Module for Python
-      pip:
-        name: docker
+    - name: Generate K6 test file
+      template:
+        src: "k6.j2"
+        dest:  "/tmp/test.j2"
+        mode: 0777
+      when: 
+        - "'srv' in inventory_hostname"

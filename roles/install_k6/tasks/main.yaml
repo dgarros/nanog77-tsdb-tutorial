@@ -1,0 +1,20 @@
+
+- name: Add apt key for K6 by id
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 379CE192D401AB61
+  tags: [ k6 ] 
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://dl.bintray.com/loadimpact/deb stable main
+    state: present
+  tags: [ k6 ] 
+  
+- name: Update apt and install K6
+  apt: 
+    update_cache: yes 
+    name: k6
+    state: latest
+  tags: [ k6 ] 
+

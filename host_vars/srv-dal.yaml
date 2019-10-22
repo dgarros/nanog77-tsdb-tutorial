@@ -2,3 +2,5 @@ interfaces:
   eth1:
     local_ip: 10.0.110.10/24
     next_hop: 10.0.110.1
+
+remote_server: 10.0.120.10
