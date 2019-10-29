@@ -1,0 +1,30 @@
+---
+- hosts: jumphost
+  become: yes
+  roles:
+    - role: cloudalchemy.prometheus
+      vars:
+        prometheus_targets:
+          node:
+          - targets: 
+            - 'localhost:9001'
+            - 'localhost:9002'
+            - 'localhost:9003'
+            - 'localhost:9004'
+            - 'localhost:9011'
+            - 'localhost:9012'
+      tags: prometheus
+
+    - role: cloudalchemy.grafana
+      vars:
+        grafana_security:
+          admin_user: admin
+          admin_password: "{{lookup('env', 'TESUTO_PASSWORD')}}"
+        grafana_datasources:
+        - name: prometheus
+          type: prometheus
+          access: proxy
+          url: 'http://localhost:9090'
+          basicAuth: false
+        grafana_plugins: [ natel-discrete-panel ]
+      tags: grafana
