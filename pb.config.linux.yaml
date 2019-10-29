@@ -66,3 +66,11 @@
         mode: 0777
       when: 
         - "'srv' in inventory_hostname"
+
+    - name: Install libfontconfig1 (jumphost only)
+      apt:
+        name:  libfontconfig1
+        state: latest 
+      when: 
+        - "'jump' in inventory_hostname"
+
