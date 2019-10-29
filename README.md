@@ -106,16 +106,19 @@ sudo service grafana-server restart
 
 # Setup the environment
 
-## Import the topology in Tesuto
+## Create the topology in Tesuto
 
-TODO 
+- Create an account on tesuto.com
+- Accept the licenses
+- Upload a SSH Key
+- Import the topology file `tesuto.export`
+
 ## Configure everything
 ```
 ansible-playbook pb.config.network.yaml
 ansible-playbook pb.config.linux.yaml
+ansible-playbook pb.prometheus.yaml
 ```
-
-
 
 
 
@@ -154,3 +157,25 @@ from either (or both) server
 ```
 k6 run --vus 50 --no-vu-connection-reuse --duration 600s /tmp/test.j2
 ```
+
+## Iperf3 
+
+```
+Start iperf3 in Server mode
+iperf3 -s -D
+```
+
+```
+iperf3 -P 64 -b 50K -l 100 -M 500 -t 600 -c 10.0.110.10 -u
+iperf3 -P 64 -b 1k -l 100 -M 500 -t 600 -c 10.0.110.10 -u
+
+
+iperf3 -P 32 -b 1K -l 100 -M 500 -t 600 -c 10.0.120.10 -u
+iperf3 -P 32 -b 100M -l 100 -M 1400 -t 600 -c 10.0.120.10 -u
+```
+
+Links 
+https://discuss.aerospike.com/t/benchmarking-throughput-and-packet-count-with-iperf3/2791
+https://support.cumulusnetworks.com/hc/en-us/articles/216509388-Throughput-Testing-and-Troubleshooting#client_commands
+
+
