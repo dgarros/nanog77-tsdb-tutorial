@@ -1,17 +1,19 @@
 # nanog77-tsdb-tutorial
 
-The goal of hthis totorial is to help you get started with Moderm Timeseries Database and Grafana. In this repository you'll find:
-- A pre-build topology of 6 devices (4xIOSXR, 1,EOs, 1xJUNOS) that you can quickly setup in [Tesuto]
+The goal of this tutorial is to help you get started with Moderm Timeseries Database and Grafana. In this repository you'll find:
+- A pre-build topology of 6 devices (4xIOSXR, 1xEOS, 1xJUNOS) that you can quickly setup in [Tesuto](https://www.tesuto.com/)
 - An ansible project to configure all devices and servers
-- A Step by Step guide to: Collect interface and bgp statistics from the network devices using gNMI, run a prometheus and a Grafana server
+- A Step-by-Step guide to: 
+  - Collect interfaces and bgp statistics from the network devices using gNMI
+  - run a prometheus and a Grafana server
 - Some example of dashboards and queries for Grafana
 
 # Tutorial
-
 ## 1- Setup a gNMI collector per device
 
-gNMI is alreayd configured on all devices, to start collecting  data, we'll be using Telegraf. Telegraf is a very flexible collector that support many input plugins and many databases (output plugins). For this tutorial we'll be using the input plugin `cisco_telemetry_gnmi` that is shipping with telegraf.
-The playbook `pb.telegraf.yaml` will start one instance of telegraf per device on the jumphost. Each instance will listen on a specific port (defined in the inventory file)
+gNMI is already configured on all devices, to start collecting  data, we'll be using [Telegraf](https://github.com/influxdata/telegraf). Telegraf is a very flexible collector that support many input plugins and many databases (output plugins).  
+For this tutorial we'll be using the input plugin `cisco_telemetry_gnmi` that is shipping with telegraf since `1.11.0`.
+The playbook `pb.telegraf.yaml` will start one instance of telegraf per device on the jumphost (using docker). Each instance will listen on a specific port (defined in the inventory file)
 ```
 ansible-playbook pb.telegraf.yaml
 ```
@@ -28,7 +30,7 @@ da5d924a1bab        telegraf:1.12.3     "/entrypoint.sh tele…"   23 hours ago 
 f83660068e29        telegraf:1.12.3     "/entrypoint.sh tele…"   23 hours ago        Up About an hour    8092/udp, 8125/udp, 8094/tcp, 0.0.0.0:9002->9002/tcp   telegraf-austin
 ```
 
-Connect to `http://<jumphost_address>:<gnmi_port_telegraf>/metrics` for each device
+Connect to `http://<jumphost_address>:<gnmi_port_telegraf>/metrics` for each device to see the data exposed by Telegraf. 
 
 ## 2- Start a prometheus server on the jumphost
 
@@ -52,12 +54,14 @@ scrape_configs:
       - targets: ['localhost:9090']
 ```
 
+Launch t=the prometheus server
 ```
 ./prometheus --config.file="prom.conf"
 ```
+
 At this point the server should be running and you can access its web interface at `http://<jumphost_address>:9090/targets`
 
-To collect the information from the network devices (via telgraf) we need to update the configuration file to add a list of targets
+To collect the information from the network devices (via telegraf) we need to update the configuration file to add a new list of targets
 ```yaml
   - job_name: 'gnmi'
     scrape_interval: 30s
@@ -72,8 +76,7 @@ To collect the information from the network devices (via telgraf) we need to upd
 ```
 
 Check that all targets are working properly in the Web interface `http://<jumphost_address>:9090/targets`
-In the web interface you can start to run some query
-
+In the web interface you can start to run some queries:
 - Show ingress octets counters for all interfaces : `interface_state_counters_in_octets`
 - Show ingress octets counters for one device : `interface_state_counters_in_octets{device="amarillo"}`
 - Show ingress octets rate for one device : `rate(interface_state_counters_in_octets{device="amarillo"}[2m])`
@@ -85,9 +88,8 @@ Enable the flag `add_interface_role` in `group_vars/all.yaml`, it will update th
 ```
 ansible-playbook pb.telegraf.yaml
 ```
+
 Check if these tags are present in the UI
-
-
 
 ## 3- Install grafana 
 
@@ -97,7 +99,7 @@ sudo dpkg -i grafana_6.4.3_amd64.deb
 sudo /bin/systemctl start grafana-server
 ```
 
-### Install discrete panel in Grafana
+### Install discrete panel in Grafana to track interface and BGP status
 
 ```
 sudo grafana-cli plugins install natel-discrete-panel
@@ -114,22 +116,23 @@ sudo service grafana-server restart
 - Import the topology file `tesuto.export`
 
 ## Configure everything
+
+1- Configure the following environment variables
+```
+TESUTO_USERNAME=<username>
+TESUTO_PASSWORD=<password>
+TESUTO_TOPOLOGY=nanog-77
+TESUTO_DOMAIN=<domain for your account>
+```
+
+2- Create a virtual environment and install ansible
+
+3- Configure all devices and servers
 ```
 ansible-playbook pb.config.network.yaml
 ansible-playbook pb.config.linux.yaml
 ansible-playbook pb.prometheus.yaml
 ```
-
-
-
-
-# K6 
-
-k6 run --vus 100 --no-vu-connection-reuse --duration 300s test.js
-
-
-
-
 
 
 # Generate some Traffic
