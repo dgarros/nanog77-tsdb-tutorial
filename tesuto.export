@@ -1,0 +1,347 @@
+{
+    "access": {
+        "data": [
+            {
+                "action": "drop",
+                "emulation": "nanog-77",
+                "emulation_id": "495610948335828995",
+                "id": "495610948884332547",
+                "is_enabled": true,
+                "port": null,
+                "priority": 10000,
+                "protocol": "any",
+                "source_ip": "0.0.0.0/0",
+                "type": "emulation_access"
+            },
+            {
+                "action": "accept",
+                "emulation": "nanog-77",
+                "emulation_id": "495610948335828995",
+                "id": "495610948470472707",
+                "is_enabled": true,
+                "port": 22,
+                "priority": 10,
+                "protocol": "tcp",
+                "source_ip": "0.0.0.0/0",
+                "type": "emulation_access"
+            },
+            {
+                "action": "accept",
+                "emulation": "nanog-77",
+                "emulation_id": "495610948335828995",
+                "id": "495610948573822979",
+                "is_enabled": true,
+                "port": 80,
+                "priority": 10,
+                "protocol": "tcp",
+                "source_ip": "0.0.0.0/0",
+                "type": "emulation_access"
+            },
+            {
+                "action": "accept",
+                "emulation": "nanog-77",
+                "emulation_id": "495610948335828995",
+                "id": "495610948679794691",
+                "is_enabled": true,
+                "port": 443,
+                "priority": 10,
+                "protocol": "tcp",
+                "source_ip": "0.0.0.0/0",
+                "type": "emulation_access"
+            },
+            {
+                "action": "accept",
+                "emulation": "nanog-77",
+                "emulation_id": "495610948335828995",
+                "id": "495610948780392451",
+                "is_enabled": true,
+                "port": 830,
+                "priority": 10,
+                "protocol": "tcp",
+                "source_ip": "0.0.0.0/0",
+                "type": "emulation_access"
+            }
+        ],
+        "type": "array"
+    },
+    "devices": {
+        "data": [
+            {
+                "can_snapshot": false,
+                "config_id": null,
+                "emulation_id": "495610948335828995",
+                "id": "495611197942267907",
+                "interfaces": [
+                    "Ethernet[1-19]"
+                ],
+                "is_enabled": true,
+                "model_id": "334652738673934337",
+                "model_name": "vEOS",
+                "name": "houston",
+                "slug": "houston",
+                "snapshot_id": null,
+                "snapshot_name": null,
+                "status": null,
+                "type": "emulation_device",
+                "user_id": "463743961704136707",
+                "user_name": "damien.garros",
+                "vendor_id": "302946505188638721",
+                "vendor_name": "Arista",
+                "version_id": "387621621123317761",
+                "version_name": "4.21.1F",
+                "xaxis": 1075.55383300781,
+                "yaxis": 497.344146728516
+            },
+            {
+                "can_snapshot": true,
+                "config_id": null,
+                "emulation_id": "495610948335828995",
+                "id": "495611315672612867",
+                "interfaces": [
+                    "eth1"
+                ],
+                "is_enabled": true,
+                "model_id": "461525324183470081",
+                "model_name": "Linux",
+                "name": "jumphost",
+                "slug": "jumphost",
+                "snapshot_id": null,
+                "snapshot_name": null,
+                "status": null,
+                "type": "emulation_device",
+                "user_id": "463743961704136707",
+                "user_name": "damien.garros",
+                "vendor_id": "461520421272616961",
+                "vendor_name": "Ubuntu",
+                "version_id": "461529911314415617",
+                "version_name": "18.04",
+                "xaxis": 624.887145996094,
+                "yaxis": 450.326507568359
+            },
+            {
+                "can_snapshot": true,
+                "config_id": null,
+                "emulation_id": "495610948335828995",
+                "id": "495611550150721539",
+                "interfaces": [
+                    "eth1"
+                ],
+                "is_enabled": true,
+                "model_id": "461525324183470081",
+                "model_name": "Linux",
+                "name": "srv-hou",
+                "slug": "srv-hou",
+                "snapshot_id": null,
+                "snapshot_name": null,
+                "status": null,
+                "type": "emulation_device",
+                "user_id": "463743961704136707",
+                "user_name": "damien.garros",
+                "vendor_id": "461520421272616961",
+                "vendor_name": "Ubuntu",
+                "version_id": "461529911314415617",
+                "version_name": "18.04",
+                "xaxis": 1028.22045898438,
+                "yaxis": 623.260864257812
+            },
+            {
+                "can_snapshot": true,
+                "config_id": null,
+                "emulation_id": "495610948335828995",
+                "id": "495611617976975361",
+                "interfaces": [
+                    "eth1"
+                ],
+                "is_enabled": true,
+                "model_id": "461525324183470081",
+                "model_name": "Linux",
+                "name": "srv-dal",
+                "slug": "srv-dal",
+                "snapshot_id": null,
+                "snapshot_name": null,
+                "status": null,
+                "type": "emulation_device",
+                "user_id": "463743961704136707",
+                "user_name": "damien.garros",
+                "vendor_id": "461520421272616961",
+                "vendor_name": "Ubuntu",
+                "version_id": "461529911314415617",
+                "version_name": "18.04",
+                "xaxis": 720.887145996094,
+                "yaxis": 637.260803222656
+            },
+            {
+                "can_snapshot": false,
+                "config_id": null,
+                "emulation_id": "495610948335828995",
+                "id": "495611070481989635",
+                "interfaces": [
+                    "gigabit0/0/[0-9]"
+                ],
+                "is_enabled": true,
+                "model_id": "408772694611460097",
+                "model_name": "IOS-XR",
+                "name": "austin",
+                "slug": "austin",
+                "snapshot_id": null,
+                "snapshot_name": null,
+                "status": null,
+                "type": "emulation_device",
+                "user_id": "463743961704136707",
+                "user_name": "damien.garros",
+                "vendor_id": "346274673784750081",
+                "vendor_name": "Cisco",
+                "version_id": "440231901209100289",
+                "version_name": "6.5.3",
+                "xaxis": 754.220458984375,
+                "yaxis": 270.094146728516
+            },
+            {
+                "can_snapshot": false,
+                "config_id": null,
+                "emulation_id": "495610948335828995",
+                "id": "495611107648503809",
+                "interfaces": [
+                    "gigabit0/0/[0-9]"
+                ],
+                "is_enabled": true,
+                "model_id": "408772694611460097",
+                "model_name": "IOS-XR",
+                "name": "dallas",
+                "slug": "dallas",
+                "snapshot_id": null,
+                "snapshot_name": null,
+                "status": null,
+                "type": "emulation_device",
+                "user_id": "463743961704136707",
+                "user_name": "damien.garros",
+                "vendor_id": "346274673784750081",
+                "vendor_name": "Cisco",
+                "version_id": "440231901209100289",
+                "version_name": "6.5.3",
+                "xaxis": 748.220458984375,
+                "yaxis": 486.010833740234
+            },
+            {
+                "can_snapshot": false,
+                "config_id": null,
+                "emulation_id": "495610948335828995",
+                "id": "495612028165554177",
+                "interfaces": [
+                    "ge-0/0/[0-48]"
+                ],
+                "is_enabled": true,
+                "model_id": "302946507183751169",
+                "model_name": "MX",
+                "name": "amarillo",
+                "slug": "amarillo",
+                "snapshot_id": null,
+                "snapshot_name": null,
+                "status": null,
+                "type": "emulation_device",
+                "user_id": "463743961704136707",
+                "user_name": "damien.garros",
+                "vendor_id": "302946507091476481",
+                "vendor_name": "Juniper",
+                "version_id": "443657913207259139",
+                "version_name": "18.4R1.9",
+                "xaxis": 1004.55383300781,
+                "yaxis": 278.010833740234
+            }
+        ],
+        "type": "array"
+    },
+    "emulation": {
+        "can_suspend": true,
+        "created_at": 1571318858,
+        "device_count": 7,
+        "end_at": null,
+        "fqdn": "nanog-77.ntc.cloud.tesuto.com",
+        "id": "495610948335828995",
+        "is_managed": true,
+        "is_persistent": true,
+        "is_ztp": true,
+        "last_updated": 1571321007,
+        "name": "nanog-77",
+        "password": "gAAAAABdqGxKRsWV08P0rzg8I1GXPTv5pQ7MVnCttcdBwtRjmXMHb0IV38khXRTZSa7A0YmjG3YHdIFAnA69HjveXHxeqda4VQ==",
+        "region": "default",
+        "region_id": "396938376316649476",
+        "reoccuring": false,
+        "slug": "nanog-77",
+        "start_at": 1571319287,
+        "status": "interactive",
+        "user": "damien.garros@networktocode.com",
+        "user_id": "463743961704136707",
+        "user_name": "damien.garros",
+        "username": "tesutocli"
+    },
+    "topologies": {
+        "data": [
+            {
+                "device": "houston",
+                "device_id": "495611197942267907",
+                "id": "495612077128351747",
+                "interface": "Ethernet3",
+                "neighbor": "srv-hou",
+                "neighbor_id": "495611550150721539",
+                "neighbor_interface": "eth1",
+                "type": "emulation_topology"
+            },
+            {
+                "device": "srv-dal",
+                "device_id": "495611617976975361",
+                "id": "495612122700283907",
+                "interface": "eth1",
+                "neighbor": "dallas",
+                "neighbor_id": "495611107648503809",
+                "neighbor_interface": "gigabit0/0/2",
+                "type": "emulation_topology"
+            },
+            {
+                "device": "austin",
+                "device_id": "495611070481989635",
+                "id": "495611357609000961",
+                "interface": "gigabit0/0/0",
+                "neighbor": "dallas",
+                "neighbor_id": "495611107648503809",
+                "neighbor_interface": "gigabit0/0/0",
+                "type": "emulation_topology"
+            },
+            {
+                "device": "austin",
+                "device_id": "495611070481989635",
+                "id": "495611375459303425",
+                "interface": "gigabit0/0/1",
+                "neighbor": "houston",
+                "neighbor_id": "495611197942267907",
+                "neighbor_interface": "Ethernet1",
+                "type": "emulation_topology"
+            },
+            {
+                "device": "amarillo",
+                "device_id": "495612028165554177",
+                "id": "495612141949550595",
+                "interface": "ge-0/0/0",
+                "neighbor": "houston",
+                "neighbor_id": "495611197942267907",
+                "neighbor_interface": "Ethernet4",
+                "type": "emulation_topology"
+            },
+            {
+                "device": "amarillo",
+                "device_id": "495612028165554177",
+                "id": "495612163153035267",
+                "interface": "ge-0/0/1",
+                "neighbor": "dallas",
+                "neighbor_id": "495611107648503809",
+                "neighbor_interface": "gigabit0/0/3",
+                "type": "emulation_topology"
+            }
+        ],
+        "type": "array"
+    },
+    "validators": {
+        "data": [],
+        "type": "array"
+    }
+}

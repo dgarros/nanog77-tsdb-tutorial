@@ -8,4 +8,4 @@ dns_servers: [ 100.96.0.1 ]
 
 gnmi_port_local: 50000
 
-add_interface_role: False
+add_interface_role: True
