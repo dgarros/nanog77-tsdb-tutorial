@@ -9,7 +9,7 @@ verify_ssl = true
 netaddr = "*"
 paramiko = "*"
 ncclient = "*"
-ansible = "==2.9.0rc3"
+ansible = "==2.9.20rc1"
 jmespath = "*"
 
 [requires]
